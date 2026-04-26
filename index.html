@@ -67,10 +67,6 @@
                 <div class="data-code code-left" aria-hidden="true"></div>
                 <div class="data-code code-right" aria-hidden="true"></div>
                 <div class="data-code code-bottom" aria-hidden="true"></div>
-                <div class="alignment vertical top"></div>
-                <div class="alignment vertical bottom"></div>
-                <div class="alignment horizontal left"></div>
-                <div class="alignment horizontal right"></div>
                 <div class="center-dot"></div>
                 <div class="ball-id" id="ballIdPreview">RAI-0001</div>
                 <div class="player-name" id="playerPreview">Player 1</div>
@@ -103,12 +99,12 @@
                 <input id="designName" name="designName" maxlength="42" value="Founder Proof Ball" />
               </label>
               <label>
-                Human readable ball ID
-                <input id="ballId" name="ballId" maxlength="16" value="RAI-0001" />
-              </label>
-              <label>
                 Player or collection name
                 <input id="playerName" name="playerName" maxlength="24" value="Player 1" />
+              </label>
+              <label>
+                Human readable ball ID
+                <input id="ballId" name="ballId" maxlength="16" value="RAI-0001" />
               </label>
 
               <div class="control-row">
@@ -121,6 +117,28 @@
                   <input id="graphicColor" name="graphicColor" type="color" value="#0f7a5f" />
                 </label>
               </div>
+
+              <div class="control-row">
+                <label>
+                  Text color
+                  <input id="textColor" name="textColor" type="color" value="#1158c7" />
+                </label>
+                <label>
+                  Text size
+                  <input id="textSize" name="textSize" type="range" min="70" max="145" value="100" />
+                </label>
+              </div>
+
+              <label>
+                Text font
+                <select id="textFont" name="textFont">
+                  <option value="Inter, ui-sans-serif, system-ui, sans-serif">Modern sans</option>
+                  <option value="Georgia, 'Times New Roman', serif">Classic serif</option>
+                  <option value="'Courier New', Courier, monospace">Technical mono</option>
+                  <option value="'Arial Black', Impact, sans-serif">Bold condensed</option>
+                  <option value="'Trebuchet MS', Arial, sans-serif">Rounded sport</option>
+                </select>
+              </label>
 
               <div class="control-row">
                 <label>

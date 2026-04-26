@@ -18,6 +18,9 @@ const els = {
   designName: document.querySelector("#designName"),
   accentColor: document.querySelector("#accentColor"),
   graphicColor: document.querySelector("#graphicColor"),
+  textColor: document.querySelector("#textColor"),
+  textSize: document.querySelector("#textSize"),
+  textFont: document.querySelector("#textFont"),
   ballColorMode: document.querySelector("#ballColorMode"),
   ballBaseColor: document.querySelector("#ballBaseColor"),
   ballSecondColor: document.querySelector("#ballSecondColor"),
@@ -121,11 +124,16 @@ function updatePreview() {
   const graphic = els.graphicColor.value;
   const mark = sanitize(els.markText.value, "R").slice(0, 4);
   const pattern = els.patternSelect.value;
+  const textScale = (Number(els.textSize.value) || 100) / 100;
 
   els.ballIdPreview.textContent = ballId;
   els.playerPreview.textContent = player;
   els.ballPreview.style.setProperty("--accent", accent);
   els.ballPreview.style.setProperty("--graphic", graphic);
+  els.ballPreview.style.setProperty("--text-color", els.textColor.value);
+  els.ballPreview.style.setProperty("--text-font", els.textFont.value);
+  els.ballPreview.style.setProperty("--ball-id-size", `${(2.1 * textScale).toFixed(2)}rem`);
+  els.ballPreview.style.setProperty("--player-size", `${(1.25 * textScale).toFixed(2)}rem`);
   els.ballPreview.style.setProperty("--ball-fill", ballFill(els.ballColorMode.value, els.ballBaseColor.value, els.ballSecondColor.value));
   els.ballPreview.style.setProperty("--pattern-color", patternColorValue(els.patternColor.value));
   els.ballPreview.classList.remove("pattern-none", "pattern-pinstripe", "pattern-chevron", "pattern-hex", "pattern-speckle");
@@ -214,6 +222,9 @@ function buildMetadata() {
       { trait_type: "Player or Collection", value: player },
       { trait_type: "Accent Color", value: els.accentColor.value },
       { trait_type: "Graphic Color", value: els.graphicColor.value },
+      { trait_type: "Text Color", value: els.textColor.value },
+      { trait_type: "Text Size", value: `${els.textSize.value}%` },
+      { trait_type: "Text Font", value: els.textFont.selectedOptions[0].textContent },
       { trait_type: "Ball Color Mode", value: els.ballColorMode.selectedOptions[0].textContent },
       { trait_type: "Primary Ball Color", value: els.ballBaseColor.value },
       { trait_type: "Secondary Ball Color", value: els.ballSecondColor.value },
@@ -268,6 +279,9 @@ async function mintDesign() {
           ballColorMode: els.ballColorMode.value,
           primaryBallColor: els.ballBaseColor.value,
           secondaryBallColor: els.ballSecondColor.value,
+          textColor: els.textColor.value,
+          textSize: Number(els.textSize.value) || 100,
+          textFont: els.textFont.value,
           pattern: els.patternSelect.value,
           customMarkSource: state.uploadedMarkName ? "uploaded-png" : "builder",
           customMark: state.uploadedMarkName || sanitize(els.markText.value, "R").slice(0, 4),
@@ -301,6 +315,9 @@ function rotateBall() {
   els.playerName,
   els.accentColor,
   els.graphicColor,
+  els.textColor,
+  els.textSize,
+  els.textFont,
   els.ballColorMode,
   els.ballBaseColor,
   els.ballSecondColor,

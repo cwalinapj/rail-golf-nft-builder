@@ -223,6 +223,10 @@ p {
 .ball {
   --accent: var(--blue);
   --graphic: var(--fairway);
+  --text-color: var(--blue);
+  --text-font: Inter, ui-sans-serif, system-ui, sans-serif;
+  --ball-id-size: 2.1rem;
+  --player-size: 1.25rem;
   --ball-fill: linear-gradient(90deg, #f7faf8, #f7faf8);
   --pattern-color: rgba(17, 88, 199, 0.22);
   --mark-image: none;
@@ -339,31 +343,6 @@ p {
 .code-right { left: 66%; top: 42%; }
 .code-bottom { left: 41%; top: 66%; }
 
-.alignment {
-  position: absolute;
-  background: var(--accent);
-  border-radius: 999px;
-  transition: left 360ms ease, top 360ms ease, transform 360ms ease, opacity 360ms ease;
-}
-
-.vertical {
-  left: 49.3%;
-  width: 1.4%;
-  height: 10%;
-}
-
-.vertical.top { top: 34%; }
-.vertical.bottom { bottom: 30%; }
-
-.horizontal {
-  top: 50%;
-  width: 3.5%;
-  height: 1.2%;
-}
-
-.horizontal.left { left: 4%; }
-.horizontal.right { right: 4%; }
-
 .center-dot {
   position: absolute;
   left: 46%;
@@ -387,14 +366,16 @@ p {
 
 .ball-id {
   top: 46%;
-  color: var(--accent);
-  font-size: clamp(1.1rem, 3vw, 2.1rem);
+  color: var(--text-color);
+  font-family: var(--text-font);
+  font-size: clamp(0.9rem, 3vw, var(--ball-id-size));
 }
 
 .player-name {
   top: 54%;
-  color: #101010;
-  font-size: clamp(0.76rem, 1.7vw, 1.25rem);
+  color: var(--text-color);
+  font-family: var(--text-font);
+  font-size: clamp(0.65rem, 1.7vw, var(--player-size));
 }
 
 .custom-mark {
@@ -427,74 +408,97 @@ p {
   background-position: 0.4rem 0, 0.8rem 0;
 }
 
-.ball.view-1 .code-top { left: 50%; top: 15%; transform: scale(0.9) skewY(-3deg); }
-.ball.view-1 .code-left { left: 27%; top: 43%; transform: scale(0.95) skewY(-2deg); }
-.ball.view-1 .code-right { left: 72%; top: 43%; transform: scale(0.7) skewY(-6deg); opacity: 0.82; }
-.ball.view-1 .code-bottom { left: 51%; top: 65%; transform: scale(0.86) skewY(-3deg); }
-.ball.view-1 .ball-id { left: 56%; transform: translateX(-50%) scaleX(0.96); }
-.ball.view-1 .player-name { left: 56%; transform: translateX(-50%) scaleX(0.96); }
-.ball.view-1 .custom-mark { left: 56%; transform: translateX(-50%) scale(0.95); }
-.ball.view-1 .center-dot { left: 52%; transform: scale(0.95); }
-.ball.view-1 .horizontal.left { left: 10%; }
-.ball.view-1 .horizontal.right { right: 8%; transform: scaleX(0.75); }
+.ball.view-1 .code-top { left: 50%; top: 15%; }
+.ball.view-1 .code-left { left: 27%; top: 43%; }
+.ball.view-1 .code-right { left: 72%; top: 43%; opacity: 0.82; }
+.ball.view-1 .code-bottom { left: 51%; top: 65%; }
+.ball.view-1 .ball-id { left: 56%; }
+.ball.view-1 .player-name { left: 56%; }
+.ball.view-1 .custom-mark { left: 56%; }
+.ball.view-1 .center-dot { left: 52%; }
 
 .ball.view-2 {
   background-position: 0.8rem 0, 1.6rem 0;
 }
 
-.ball.view-2 .code-top { left: 58%; top: 17%; transform: scale(0.78) skewY(-6deg); opacity: 0.86; }
-.ball.view-2 .code-left { left: 38%; top: 43%; transform: scale(0.9) skewY(-3deg); }
-.ball.view-2 .code-right { left: 77%; top: 45%; transform: scale(0.54) skewY(-8deg); opacity: 0.68; }
-.ball.view-2 .code-bottom { left: 58%; top: 63%; transform: scale(0.76) skewY(-6deg); opacity: 0.86; }
-.ball.view-2 .ball-id { left: 62%; transform: translateX(-50%) scaleX(0.88); }
-.ball.view-2 .player-name { left: 62%; transform: translateX(-50%) scaleX(0.88); }
-.ball.view-2 .custom-mark { left: 62%; transform: translateX(-50%) scale(0.84); }
-.ball.view-2 .center-dot { left: 59%; transform: scale(0.86); }
-.ball.view-2 .horizontal.left { left: 18%; transform: scaleX(0.85); }
-.ball.view-2 .horizontal.right { right: 7%; transform: scaleX(0.55); opacity: 0.72; }
+.ball.view-2 .code-top { left: 58%; top: 17%; opacity: 0.86; }
+.ball.view-2 .code-left { left: 38%; top: 43%; }
+.ball.view-2 .code-right { left: 77%; top: 45%; opacity: 0.68; }
+.ball.view-2 .code-bottom { left: 58%; top: 63%; opacity: 0.86; }
+.ball.view-2 .ball-id { left: 62%; }
+.ball.view-2 .player-name { left: 62%; }
+.ball.view-2 .custom-mark { left: 62%; }
+.ball.view-2 .center-dot { left: 59%; }
 
 .ball.view-3 {
   background-position: 1.2rem 0, 2.4rem 0;
 }
 
-.ball.view-3 .code-top { left: 41%; top: 13%; transform: scale(0.96); }
-.ball.view-3 .code-left { left: 68%; top: 42%; transform: scale(0.72) skewY(-5deg); opacity: 0.78; }
-.ball.view-3 .code-right { left: 15%; top: 42%; transform: scale(0.9) skewY(3deg); }
-.ball.view-3 .code-bottom { left: 41%; top: 67%; transform: scale(0.96); }
-.ball.view-3 .ball-id { left: 50%; transform: translateX(-50%) scaleX(0.98); }
-.ball.view-3 .player-name { left: 50%; transform: translateX(-50%) scaleX(0.98); }
-.ball.view-3 .custom-mark { left: 50%; transform: translateX(-50%) scale(0.96); }
-.ball.view-3 .center-dot { left: 46%; transform: scale(0.96); }
+.ball.view-3 .code-top { left: 41%; top: 13%; }
+.ball.view-3 .code-left { left: 68%; top: 42%; opacity: 0.78; }
+.ball.view-3 .code-right { left: 15%; top: 42%; }
+.ball.view-3 .code-bottom { left: 41%; top: 67%; }
+.ball.view-3 .ball-id { left: 50%; }
+.ball.view-3 .player-name { left: 50%; }
+.ball.view-3 .custom-mark { left: 50%; }
+.ball.view-3 .center-dot { left: 46%; }
 
 .ball.view-4 {
   background-position: -0.8rem 0, -1.6rem 0;
 }
 
-.ball.view-4 .code-top { left: 28%; top: 17%; transform: scale(0.78) skewY(6deg); opacity: 0.86; }
-.ball.view-4 .code-left { left: 9%; top: 45%; transform: scale(0.54) skewY(8deg); opacity: 0.68; }
-.ball.view-4 .code-right { left: 45%; top: 43%; transform: scale(0.9) skewY(3deg); }
-.ball.view-4 .code-bottom { left: 28%; top: 63%; transform: scale(0.76) skewY(6deg); opacity: 0.86; }
-.ball.view-4 .ball-id { left: 39%; transform: translateX(-50%) scaleX(0.88); }
-.ball.view-4 .player-name { left: 39%; transform: translateX(-50%) scaleX(0.88); }
-.ball.view-4 .custom-mark { left: 39%; transform: translateX(-50%) scale(0.84); }
-.ball.view-4 .center-dot { left: 36%; transform: scale(0.86); }
-.ball.view-4 .horizontal.left { left: 7%; transform: scaleX(0.55); opacity: 0.72; }
-.ball.view-4 .horizontal.right { right: 18%; transform: scaleX(0.85); }
+.ball.view-4 .code-top { left: 28%; top: 17%; opacity: 0.86; }
+.ball.view-4 .code-left { left: 9%; top: 45%; opacity: 0.68; }
+.ball.view-4 .code-right { left: 45%; top: 43%; }
+.ball.view-4 .code-bottom { left: 28%; top: 63%; opacity: 0.86; }
+.ball.view-4 .ball-id { left: 39%; }
+.ball.view-4 .player-name { left: 39%; }
+.ball.view-4 .custom-mark { left: 39%; }
+.ball.view-4 .center-dot { left: 36%; }
 
 .ball.view-5 {
   background-position: -0.4rem 0, -0.8rem 0;
 }
 
-.ball.view-5 .code-top { left: 32%; top: 15%; transform: scale(0.9) skewY(3deg); }
-.ball.view-5 .code-left { left: 9%; top: 43%; transform: scale(0.7) skewY(6deg); opacity: 0.82; }
-.ball.view-5 .code-right { left: 57%; top: 43%; transform: scale(0.95) skewY(2deg); }
-.ball.view-5 .code-bottom { left: 32%; top: 65%; transform: scale(0.86) skewY(3deg); }
-.ball.view-5 .ball-id { left: 44%; transform: translateX(-50%) scaleX(0.96); }
-.ball.view-5 .player-name { left: 44%; transform: translateX(-50%) scaleX(0.96); }
-.ball.view-5 .custom-mark { left: 44%; transform: translateX(-50%) scale(0.95); }
-.ball.view-5 .center-dot { left: 40%; transform: scale(0.95); }
-.ball.view-5 .horizontal.left { left: 8%; transform: scaleX(0.75); }
-.ball.view-5 .horizontal.right { right: 10%; }
+.ball.view-5 .code-top { left: 32%; top: 15%; }
+.ball.view-5 .code-left { left: 9%; top: 43%; opacity: 0.82; }
+.ball.view-5 .code-right { left: 57%; top: 43%; }
+.ball.view-5 .code-bottom { left: 32%; top: 65%; }
+.ball.view-5 .ball-id { left: 44%; }
+.ball.view-5 .player-name { left: 44%; }
+.ball.view-5 .custom-mark { left: 44%; }
+.ball.view-5 .center-dot { left: 40%; }
+
+.ball.view-1 .data-code,
+.ball.view-2 .data-code,
+.ball.view-3 .data-code,
+.ball.view-4 .data-code,
+.ball.view-5 .data-code,
+.ball.view-1 .center-dot,
+.ball.view-2 .center-dot,
+.ball.view-3 .center-dot,
+.ball.view-4 .center-dot,
+.ball.view-5 .center-dot {
+  transform: none;
+}
+
+.ball.view-1 .ball-id,
+.ball.view-2 .ball-id,
+.ball.view-3 .ball-id,
+.ball.view-4 .ball-id,
+.ball.view-5 .ball-id,
+.ball.view-1 .player-name,
+.ball.view-2 .player-name,
+.ball.view-3 .player-name,
+.ball.view-4 .player-name,
+.ball.view-5 .player-name,
+.ball.view-1 .custom-mark,
+.ball.view-2 .custom-mark,
+.ball.view-3 .custom-mark,
+.ball.view-4 .custom-mark,
+.ball.view-5 .custom-mark {
+  transform: translateX(-50%);
+}
 
 .angle-grid {
   display: grid;
