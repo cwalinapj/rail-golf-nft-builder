@@ -398,6 +398,10 @@ p {
   background-size: contain;
 }
 
+.custom-mark.no-mark {
+  display: none;
+}
+
 .ball-id,
 .player-name,
 .custom-mark {
@@ -550,6 +554,15 @@ p {
   border: 1px solid var(--line);
   border-radius: 8px;
   background: rgba(247, 250, 248, 0.86);
+}
+
+.built-mark-options {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.built-mark-options[hidden] {
+  display: none;
 }
 
 label {

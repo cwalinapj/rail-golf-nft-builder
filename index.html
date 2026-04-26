@@ -70,7 +70,7 @@
                 <div class="center-dot"></div>
                 <div class="ball-id" id="ballIdPreview">RAI-0001</div>
                 <div class="player-name" id="playerPreview">Player 1</div>
-                <div class="custom-mark" id="customMark">R</div>
+                <div class="custom-mark no-mark" id="customMark"></div>
               </div>
               <div class="shadow"></div>
             </div>
@@ -183,25 +183,28 @@
                   Upload transparent PNG mark
                   <input id="customMarkUpload" name="customMarkUpload" type="file" accept="image/png" />
                 </label>
-                <div class="control-row">
+                <button class="secondary-button" id="enableBuiltMarkButton" type="button">Add Built Mark</button>
+                <div class="built-mark-options" id="builtMarkOptions" hidden>
+                  <div class="control-row">
+                    <label>
+                      Transparent mark text
+                      <input id="markText" name="markText" maxlength="4" value="" placeholder="R" />
+                    </label>
+                    <label>
+                      Mark style
+                      <select id="markStyle" name="markStyle">
+                        <option value="900">Bold</option>
+                        <option value="700">Classic</option>
+                        <option value="400">Light</option>
+                      </select>
+                    </label>
+                  </div>
                   <label>
-                    Transparent mark text
-                    <input id="markText" name="markText" maxlength="4" value="R" />
-                  </label>
-                  <label>
-                    Mark style
-                    <select id="markStyle" name="markStyle">
-                      <option value="900">Bold</option>
-                      <option value="700">Classic</option>
-                      <option value="400">Light</option>
-                    </select>
+                    Mark color
+                    <input id="markColor" name="markColor" type="color" value="#0f7a5f" />
                   </label>
                 </div>
-                <label>
-                  Mark color
-                  <input id="markColor" name="markColor" type="color" value="#0f7a5f" />
-                </label>
-                <button class="secondary-button" id="clearUploadButton" type="button">Use Built Mark</button>
+                <button class="secondary-button" id="clearUploadButton" type="button">Remove Mark</button>
               </div>
 
               <label>

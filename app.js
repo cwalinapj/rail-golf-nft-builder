@@ -3,6 +3,7 @@ const state = {
   rotation: 0,
   uploadedMarkName: "",
   uploadedMarkUrl: "",
+  builtMarkEnabled: false,
 };
 
 const els = {
@@ -27,6 +28,8 @@ const els = {
   patternSelect: document.querySelector("#patternSelect"),
   patternColor: document.querySelector("#patternColor"),
   customMarkUpload: document.querySelector("#customMarkUpload"),
+  enableBuiltMarkButton: document.querySelector("#enableBuiltMarkButton"),
+  builtMarkOptions: document.querySelector("#builtMarkOptions"),
   clearUploadButton: document.querySelector("#clearUploadButton"),
   markText: document.querySelector("#markText"),
   markColor: document.querySelector("#markColor"),
@@ -122,7 +125,7 @@ function updatePreview() {
   const player = sanitize(els.playerName.value, "Player 1");
   const accent = els.accentColor.value;
   const graphic = els.graphicColor.value;
-  const mark = sanitize(els.markText.value, "R").slice(0, 4);
+  const mark = sanitize(els.markText.value, "").slice(0, 4);
   const pattern = els.patternSelect.value;
   const textScale = (Number(els.textSize.value) || 100) / 100;
 
@@ -139,16 +142,25 @@ function updatePreview() {
   els.ballPreview.classList.remove("pattern-none", "pattern-pinstripe", "pattern-chevron", "pattern-hex", "pattern-speckle");
   els.ballPreview.classList.add(patternClassName(pattern));
 
+  els.builtMarkOptions.hidden = !state.builtMarkEnabled;
+
   if (state.uploadedMarkUrl) {
     els.ballPreview.style.setProperty("--mark-image", `url("${state.uploadedMarkUrl}")`);
     els.customMark.textContent = "";
     els.customMark.classList.add("has-image");
-  } else {
+    els.customMark.classList.remove("no-mark");
+  } else if (state.builtMarkEnabled && mark) {
     els.ballPreview.style.setProperty("--mark-image", "none");
     els.customMark.textContent = mark;
     els.customMark.style.color = els.markColor.value;
     els.customMark.style.fontWeight = els.markStyle.value;
     els.customMark.classList.remove("has-image");
+    els.customMark.classList.remove("no-mark");
+  } else {
+    els.ballPreview.style.setProperty("--mark-image", "none");
+    els.customMark.textContent = "";
+    els.customMark.classList.remove("has-image");
+    els.customMark.classList.add("no-mark");
   }
 
   document.documentElement.style.setProperty("--code-pattern", codePattern(els.codeDensity.value));
@@ -170,11 +182,12 @@ function handleMarkUpload(event) {
 
   state.uploadedMarkName = file.name;
   state.uploadedMarkUrl = URL.createObjectURL(file);
+  state.builtMarkEnabled = false;
   updatePreview();
   setStatus(`Custom transparent PNG mark loaded: ${file.name}`);
 }
 
-function clearUploadedMark() {
+function enableBuiltMark() {
   if (state.uploadedMarkUrl) {
     URL.revokeObjectURL(state.uploadedMarkUrl);
   }
@@ -182,8 +195,26 @@ function clearUploadedMark() {
   state.uploadedMarkName = "";
   state.uploadedMarkUrl = "";
   els.customMarkUpload.value = "";
+  state.builtMarkEnabled = true;
+  if (!els.markText.value.trim()) {
+    els.markText.value = "R";
+  }
   updatePreview();
-  setStatus("Using the transparent mark builder for the preview.");
+  setStatus("Built mark options enabled.");
+}
+
+function removeMark() {
+  if (state.uploadedMarkUrl) {
+    URL.revokeObjectURL(state.uploadedMarkUrl);
+  }
+
+  state.uploadedMarkName = "";
+  state.uploadedMarkUrl = "";
+  state.builtMarkEnabled = false;
+  els.markText.value = "";
+  els.customMarkUpload.value = "";
+  updatePreview();
+  setStatus("Custom mark removed.");
 }
 
 function buildMetadata() {
@@ -230,8 +261,11 @@ function buildMetadata() {
       { trait_type: "Secondary Ball Color", value: els.ballSecondColor.value },
       { trait_type: "Ball Pattern", value: els.patternSelect.selectedOptions[0].textContent },
       { trait_type: "Pattern Color", value: els.patternColor.value },
-      { trait_type: "Custom Mark Source", value: state.uploadedMarkName ? "Uploaded transparent PNG" : "Transparent mark builder" },
-      { trait_type: "Custom Mark", value: state.uploadedMarkName || sanitize(els.markText.value, "R").slice(0, 4) },
+      {
+        trait_type: "Custom Mark Source",
+        value: state.uploadedMarkName ? "Uploaded transparent PNG" : state.builtMarkEnabled ? "Transparent mark builder" : "No custom mark",
+      },
+      { trait_type: "Custom Mark", value: state.uploadedMarkName || (state.builtMarkEnabled ? sanitize(els.markText.value, "").slice(0, 4) : "None") },
       { trait_type: "Print Method", value: "UV printed golf ball" },
       { trait_type: "Rights", value: "Exclusive use of this design for future Rail Golf golf ball purchases" },
       { trait_type: "Fundraiser Purpose", value: "Rail Golf MVP course deployment" },
@@ -283,8 +317,8 @@ async function mintDesign() {
           textSize: Number(els.textSize.value) || 100,
           textFont: els.textFont.value,
           pattern: els.patternSelect.value,
-          customMarkSource: state.uploadedMarkName ? "uploaded-png" : "builder",
-          customMark: state.uploadedMarkName || sanitize(els.markText.value, "R").slice(0, 4),
+          customMarkSource: state.uploadedMarkName ? "uploaded-png" : state.builtMarkEnabled ? "builder" : "none",
+          customMark: state.uploadedMarkName || (state.builtMarkEnabled ? sanitize(els.markText.value, "").slice(0, 4) : ""),
           qrDataMatrixRequired: true,
           exclusiveUseAcknowledged: true,
         },
@@ -330,7 +364,8 @@ function rotateBall() {
 ].forEach((input) => input.addEventListener("input", updatePreview));
 
 els.customMarkUpload.addEventListener("change", handleMarkUpload);
-els.clearUploadButton.addEventListener("click", clearUploadedMark);
+els.enableBuiltMarkButton.addEventListener("click", enableBuiltMark);
+els.clearUploadButton.addEventListener("click", removeMark);
 els.walletButton.addEventListener("click", connectWallet);
 els.metadataButton.addEventListener("click", previewMetadata);
 els.mintButton.addEventListener("click", mintDesign);
