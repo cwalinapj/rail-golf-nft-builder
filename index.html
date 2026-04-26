@@ -122,16 +122,69 @@
                 </label>
               </div>
 
+              <div class="control-row">
+                <label>
+                  Ball color mode
+                  <select id="ballColorMode" name="ballColorMode">
+                    <option value="solid">Solid color</option>
+                    <option value="split-vertical">50/50 left right</option>
+                    <option value="split-horizontal">50/50 top bottom</option>
+                    <option value="split-diagonal">50/50 diagonal</option>
+                  </select>
+                </label>
+                <label>
+                  Pattern
+                  <select id="patternSelect" name="patternSelect">
+                    <option value="none">No pattern</option>
+                    <option value="pinstripe">Pinstripe wrap</option>
+                    <option value="chevron">Chevron wrap</option>
+                    <option value="hex">Hex tech</option>
+                    <option value="speckle">Speckle field</option>
+                  </select>
+                </label>
+              </div>
+
+              <div class="control-row">
+                <label>
+                  Primary ball color
+                  <input id="ballBaseColor" name="ballBaseColor" type="color" value="#f7faf8" />
+                </label>
+                <label>
+                  Secondary ball color
+                  <input id="ballSecondColor" name="ballSecondColor" type="color" value="#d8f3e8" />
+                </label>
+              </div>
+
               <label>
-                Custom mark
-                <select id="customMarkSelect" name="customMarkSelect">
-                  <option value="R">Rail monogram</option>
-                  <option value="★">Founder star</option>
-                  <option value="◆">Diamond</option>
-                  <option value="⌁">Wave</option>
-                  <option value="●">Tour dot</option>
-                </select>
+                Pattern color
+                <input id="patternColor" name="patternColor" type="color" value="#1158c7" />
               </label>
+
+              <div class="mark-builder">
+                <label>
+                  Upload transparent PNG mark
+                  <input id="customMarkUpload" name="customMarkUpload" type="file" accept="image/png" />
+                </label>
+                <div class="control-row">
+                  <label>
+                    Transparent mark text
+                    <input id="markText" name="markText" maxlength="4" value="R" />
+                  </label>
+                  <label>
+                    Mark style
+                    <select id="markStyle" name="markStyle">
+                      <option value="900">Bold</option>
+                      <option value="700">Classic</option>
+                      <option value="400">Light</option>
+                    </select>
+                  </label>
+                </div>
+                <label>
+                  Mark color
+                  <input id="markColor" name="markColor" type="color" value="#0f7a5f" />
+                </label>
+                <button class="secondary-button" id="clearUploadButton" type="button">Use Built Mark</button>
+              </div>
 
               <label>
                 QR/Data Matrix density

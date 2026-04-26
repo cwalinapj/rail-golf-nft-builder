@@ -1,6 +1,8 @@
 const state = {
   wallet: null,
   rotation: 0,
+  uploadedMarkName: "",
+  uploadedMarkUrl: "",
 };
 
 const els = {
@@ -16,7 +18,16 @@ const els = {
   designName: document.querySelector("#designName"),
   accentColor: document.querySelector("#accentColor"),
   graphicColor: document.querySelector("#graphicColor"),
-  customMarkSelect: document.querySelector("#customMarkSelect"),
+  ballColorMode: document.querySelector("#ballColorMode"),
+  ballBaseColor: document.querySelector("#ballBaseColor"),
+  ballSecondColor: document.querySelector("#ballSecondColor"),
+  patternSelect: document.querySelector("#patternSelect"),
+  patternColor: document.querySelector("#patternColor"),
+  customMarkUpload: document.querySelector("#customMarkUpload"),
+  clearUploadButton: document.querySelector("#clearUploadButton"),
+  markText: document.querySelector("#markText"),
+  markColor: document.querySelector("#markColor"),
+  markStyle: document.querySelector("#markStyle"),
   customMark: document.querySelector("#customMark"),
   codeDensity: document.querySelector("#codeDensity"),
   rightsAcknowledged: document.querySelector("#rightsAcknowledged"),
@@ -68,19 +79,103 @@ function codePattern(density) {
   `;
 }
 
+function ballFill(mode, primary, secondary) {
+  if (mode === "split-vertical") {
+    return `linear-gradient(90deg, ${primary} 0 50%, ${secondary} 50% 100%)`;
+  }
+
+  if (mode === "split-horizontal") {
+    return `linear-gradient(180deg, ${primary} 0 50%, ${secondary} 50% 100%)`;
+  }
+
+  if (mode === "split-diagonal") {
+    return `linear-gradient(135deg, ${primary} 0 50%, ${secondary} 50% 100%)`;
+  }
+
+  return `linear-gradient(90deg, ${primary}, ${primary})`;
+}
+
+function hexToRgb(hex) {
+  const value = String(hex || "").replace("#", "");
+  const bigint = parseInt(value.length === 3 ? value.split("").map((char) => char + char).join("") : value, 16);
+  return {
+    r: (bigint >> 16) & 255,
+    g: (bigint >> 8) & 255,
+    b: bigint & 255,
+  };
+}
+
+function patternColorValue(hex) {
+  const { r, g, b } = hexToRgb(hex);
+  return `rgba(${r}, ${g}, ${b}, 0.26)`;
+}
+
+function patternClassName(pattern) {
+  return `pattern-${pattern}`;
+}
+
 function updatePreview() {
   const ballId = sanitize(els.ballId.value, "RAI-0001").toUpperCase();
   const player = sanitize(els.playerName.value, "Player 1");
   const accent = els.accentColor.value;
   const graphic = els.graphicColor.value;
-  const mark = els.customMarkSelect.value;
+  const mark = sanitize(els.markText.value, "R").slice(0, 4);
+  const pattern = els.patternSelect.value;
 
   els.ballIdPreview.textContent = ballId;
   els.playerPreview.textContent = player;
-  els.customMark.textContent = mark;
   els.ballPreview.style.setProperty("--accent", accent);
   els.ballPreview.style.setProperty("--graphic", graphic);
+  els.ballPreview.style.setProperty("--ball-fill", ballFill(els.ballColorMode.value, els.ballBaseColor.value, els.ballSecondColor.value));
+  els.ballPreview.style.setProperty("--pattern-color", patternColorValue(els.patternColor.value));
+  els.ballPreview.classList.remove("pattern-none", "pattern-pinstripe", "pattern-chevron", "pattern-hex", "pattern-speckle");
+  els.ballPreview.classList.add(patternClassName(pattern));
+
+  if (state.uploadedMarkUrl) {
+    els.ballPreview.style.setProperty("--mark-image", `url("${state.uploadedMarkUrl}")`);
+    els.customMark.textContent = "";
+    els.customMark.classList.add("has-image");
+  } else {
+    els.ballPreview.style.setProperty("--mark-image", "none");
+    els.customMark.textContent = mark;
+    els.customMark.style.color = els.markColor.value;
+    els.customMark.style.fontWeight = els.markStyle.value;
+    els.customMark.classList.remove("has-image");
+  }
+
   document.documentElement.style.setProperty("--code-pattern", codePattern(els.codeDensity.value));
+}
+
+function handleMarkUpload(event) {
+  const file = event.target.files && event.target.files[0];
+  if (!file) return;
+
+  if (file.type !== "image/png") {
+    setStatus("Please upload a transparent PNG mark. Other image formats are not accepted for this print-ready preview.");
+    event.target.value = "";
+    return;
+  }
+
+  if (state.uploadedMarkUrl) {
+    URL.revokeObjectURL(state.uploadedMarkUrl);
+  }
+
+  state.uploadedMarkName = file.name;
+  state.uploadedMarkUrl = URL.createObjectURL(file);
+  updatePreview();
+  setStatus(`Custom transparent PNG mark loaded: ${file.name}`);
+}
+
+function clearUploadedMark() {
+  if (state.uploadedMarkUrl) {
+    URL.revokeObjectURL(state.uploadedMarkUrl);
+  }
+
+  state.uploadedMarkName = "";
+  state.uploadedMarkUrl = "";
+  els.customMarkUpload.value = "";
+  updatePreview();
+  setStatus("Using the transparent mark builder for the preview.");
 }
 
 function buildMetadata() {
@@ -119,7 +214,13 @@ function buildMetadata() {
       { trait_type: "Player or Collection", value: player },
       { trait_type: "Accent Color", value: els.accentColor.value },
       { trait_type: "Graphic Color", value: els.graphicColor.value },
-      { trait_type: "Custom Mark", value: els.customMarkSelect.selectedOptions[0].textContent },
+      { trait_type: "Ball Color Mode", value: els.ballColorMode.selectedOptions[0].textContent },
+      { trait_type: "Primary Ball Color", value: els.ballBaseColor.value },
+      { trait_type: "Secondary Ball Color", value: els.ballSecondColor.value },
+      { trait_type: "Ball Pattern", value: els.patternSelect.selectedOptions[0].textContent },
+      { trait_type: "Pattern Color", value: els.patternColor.value },
+      { trait_type: "Custom Mark Source", value: state.uploadedMarkName ? "Uploaded transparent PNG" : "Transparent mark builder" },
+      { trait_type: "Custom Mark", value: state.uploadedMarkName || sanitize(els.markText.value, "R").slice(0, 4) },
       { trait_type: "Print Method", value: "UV printed golf ball" },
       { trait_type: "Rights", value: "Exclusive use of this design for future Rail Golf golf ball purchases" },
       { trait_type: "Fundraiser Purpose", value: "Rail Golf MVP course deployment" },
@@ -164,6 +265,12 @@ async function mintDesign() {
         metadata,
         design: {
           ballId: sanitize(els.ballId.value, "RAI-0001").toUpperCase(),
+          ballColorMode: els.ballColorMode.value,
+          primaryBallColor: els.ballBaseColor.value,
+          secondaryBallColor: els.ballSecondColor.value,
+          pattern: els.patternSelect.value,
+          customMarkSource: state.uploadedMarkName ? "uploaded-png" : "builder",
+          customMark: state.uploadedMarkName || sanitize(els.markText.value, "R").slice(0, 4),
           qrDataMatrixRequired: true,
           exclusiveUseAcknowledged: true,
         },
@@ -194,10 +301,19 @@ function rotateBall() {
   els.playerName,
   els.accentColor,
   els.graphicColor,
-  els.customMarkSelect,
+  els.ballColorMode,
+  els.ballBaseColor,
+  els.ballSecondColor,
+  els.patternSelect,
+  els.patternColor,
+  els.markText,
+  els.markColor,
+  els.markStyle,
   els.codeDensity,
 ].forEach((input) => input.addEventListener("input", updatePreview));
 
+els.customMarkUpload.addEventListener("change", handleMarkUpload);
+els.clearUploadButton.addEventListener("click", clearUploadedMark);
 els.walletButton.addEventListener("click", connectWallet);
 els.metadataButton.addEventListener("click", previewMetadata);
 els.mintButton.addEventListener("click", mintDesign);
