@@ -224,6 +224,7 @@ p {
   --accent: var(--blue);
   --graphic: var(--fairway);
   position: relative;
+  overflow: hidden;
   width: min(62vw, 26rem);
   aspect-ratio: 1;
   border-radius: 50%;
@@ -231,8 +232,7 @@ p {
     radial-gradient(circle at 32% 25%, rgba(255, 255, 255, 0.98) 0 15%, rgba(247, 249, 247, 0.85) 28%, rgba(208, 218, 214, 0.5) 74%, rgba(151, 162, 158, 0.55) 100%),
     repeating-radial-gradient(circle at 30% 28%, rgba(186, 199, 194, 0.35) 0 0.18rem, transparent 0.2rem 1.12rem);
   box-shadow: inset -2.2rem -2.2rem 4.2rem rgba(83, 94, 89, 0.3), inset 1.4rem 1.4rem 2.4rem rgba(255, 255, 255, 0.95), 0 2.2rem 4rem rgba(31, 46, 41, 0.18);
-  transform: rotateY(var(--rotation, 0deg));
-  transition: transform 360ms ease;
+  transition: background-position 360ms ease;
 }
 
 .shadow {
@@ -250,6 +250,7 @@ p {
   border-radius: 50%;
   background: rgba(181, 192, 188, 0.38);
   box-shadow: inset 0.28rem 0.28rem 0.55rem rgba(77, 91, 86, 0.14), inset -0.18rem -0.18rem 0.35rem rgba(255, 255, 255, 0.8);
+  transition: left 360ms ease, top 360ms ease, transform 360ms ease, opacity 360ms ease;
 }
 
 .d1 { left: 22%; top: 22%; }
@@ -267,17 +268,19 @@ p {
   background-size: 0.54rem 0.54rem;
   image-rendering: pixelated;
   box-shadow: 0 0 0 0.15rem rgba(255, 255, 255, 0.88);
+  transition: left 360ms ease, top 360ms ease, transform 360ms ease, opacity 360ms ease;
 }
 
 .code-top { left: 41%; top: 14%; }
 .code-left { left: 16%; top: 42%; }
-.code-right { right: 16%; top: 42%; }
-.code-bottom { left: 41%; bottom: 16%; }
+.code-right { left: 66%; top: 42%; }
+.code-bottom { left: 41%; top: 66%; }
 
 .alignment {
   position: absolute;
   background: var(--accent);
   border-radius: 999px;
+  transition: left 360ms ease, top 360ms ease, transform 360ms ease, opacity 360ms ease;
 }
 
 .vertical {
@@ -306,6 +309,7 @@ p {
   aspect-ratio: 1;
   border-radius: 50%;
   background: var(--accent);
+  transition: left 360ms ease, top 360ms ease, transform 360ms ease, opacity 360ms ease;
 }
 
 .ball-id,
@@ -336,6 +340,85 @@ p {
   font-size: clamp(1.6rem, 4vw, 3.2rem);
   opacity: 0.9;
 }
+
+.ball-id,
+.player-name,
+.custom-mark {
+  transition: left 360ms ease, top 360ms ease, bottom 360ms ease, transform 360ms ease, opacity 360ms ease;
+}
+
+.ball.view-1 {
+  background-position: 0.4rem 0, 0.8rem 0;
+}
+
+.ball.view-1 .code-top { left: 50%; top: 15%; transform: scale(0.9) skewY(-3deg); }
+.ball.view-1 .code-left { left: 27%; top: 43%; transform: scale(0.95) skewY(-2deg); }
+.ball.view-1 .code-right { left: 72%; top: 43%; transform: scale(0.7) skewY(-6deg); opacity: 0.82; }
+.ball.view-1 .code-bottom { left: 51%; top: 65%; transform: scale(0.86) skewY(-3deg); }
+.ball.view-1 .ball-id { left: 56%; transform: translateX(-50%) scaleX(0.96); }
+.ball.view-1 .player-name { left: 56%; transform: translateX(-50%) scaleX(0.96); }
+.ball.view-1 .custom-mark { left: 56%; transform: translateX(-50%) scale(0.95); }
+.ball.view-1 .center-dot { left: 52%; transform: scale(0.95); }
+.ball.view-1 .horizontal.left { left: 10%; }
+.ball.view-1 .horizontal.right { right: 8%; transform: scaleX(0.75); }
+
+.ball.view-2 {
+  background-position: 0.8rem 0, 1.6rem 0;
+}
+
+.ball.view-2 .code-top { left: 58%; top: 17%; transform: scale(0.78) skewY(-6deg); opacity: 0.86; }
+.ball.view-2 .code-left { left: 38%; top: 43%; transform: scale(0.9) skewY(-3deg); }
+.ball.view-2 .code-right { left: 77%; top: 45%; transform: scale(0.54) skewY(-8deg); opacity: 0.68; }
+.ball.view-2 .code-bottom { left: 58%; top: 63%; transform: scale(0.76) skewY(-6deg); opacity: 0.86; }
+.ball.view-2 .ball-id { left: 62%; transform: translateX(-50%) scaleX(0.88); }
+.ball.view-2 .player-name { left: 62%; transform: translateX(-50%) scaleX(0.88); }
+.ball.view-2 .custom-mark { left: 62%; transform: translateX(-50%) scale(0.84); }
+.ball.view-2 .center-dot { left: 59%; transform: scale(0.86); }
+.ball.view-2 .horizontal.left { left: 18%; transform: scaleX(0.85); }
+.ball.view-2 .horizontal.right { right: 7%; transform: scaleX(0.55); opacity: 0.72; }
+
+.ball.view-3 {
+  background-position: 1.2rem 0, 2.4rem 0;
+}
+
+.ball.view-3 .code-top { left: 41%; top: 13%; transform: scale(0.96); }
+.ball.view-3 .code-left { left: 68%; top: 42%; transform: scale(0.72) skewY(-5deg); opacity: 0.78; }
+.ball.view-3 .code-right { left: 15%; top: 42%; transform: scale(0.9) skewY(3deg); }
+.ball.view-3 .code-bottom { left: 41%; top: 67%; transform: scale(0.96); }
+.ball.view-3 .ball-id { left: 50%; transform: translateX(-50%) scaleX(0.98); }
+.ball.view-3 .player-name { left: 50%; transform: translateX(-50%) scaleX(0.98); }
+.ball.view-3 .custom-mark { left: 50%; transform: translateX(-50%) scale(0.96); }
+.ball.view-3 .center-dot { left: 46%; transform: scale(0.96); }
+
+.ball.view-4 {
+  background-position: -0.8rem 0, -1.6rem 0;
+}
+
+.ball.view-4 .code-top { left: 28%; top: 17%; transform: scale(0.78) skewY(6deg); opacity: 0.86; }
+.ball.view-4 .code-left { left: 9%; top: 45%; transform: scale(0.54) skewY(8deg); opacity: 0.68; }
+.ball.view-4 .code-right { left: 45%; top: 43%; transform: scale(0.9) skewY(3deg); }
+.ball.view-4 .code-bottom { left: 28%; top: 63%; transform: scale(0.76) skewY(6deg); opacity: 0.86; }
+.ball.view-4 .ball-id { left: 39%; transform: translateX(-50%) scaleX(0.88); }
+.ball.view-4 .player-name { left: 39%; transform: translateX(-50%) scaleX(0.88); }
+.ball.view-4 .custom-mark { left: 39%; transform: translateX(-50%) scale(0.84); }
+.ball.view-4 .center-dot { left: 36%; transform: scale(0.86); }
+.ball.view-4 .horizontal.left { left: 7%; transform: scaleX(0.55); opacity: 0.72; }
+.ball.view-4 .horizontal.right { right: 18%; transform: scaleX(0.85); }
+
+.ball.view-5 {
+  background-position: -0.4rem 0, -0.8rem 0;
+}
+
+.ball.view-5 .code-top { left: 32%; top: 15%; transform: scale(0.9) skewY(3deg); }
+.ball.view-5 .code-left { left: 9%; top: 43%; transform: scale(0.7) skewY(6deg); opacity: 0.82; }
+.ball.view-5 .code-right { left: 57%; top: 43%; transform: scale(0.95) skewY(2deg); }
+.ball.view-5 .code-bottom { left: 32%; top: 65%; transform: scale(0.86) skewY(3deg); }
+.ball.view-5 .ball-id { left: 44%; transform: translateX(-50%) scaleX(0.96); }
+.ball.view-5 .player-name { left: 44%; transform: translateX(-50%) scaleX(0.96); }
+.ball.view-5 .custom-mark { left: 44%; transform: translateX(-50%) scale(0.95); }
+.ball.view-5 .center-dot { left: 40%; transform: scale(0.95); }
+.ball.view-5 .horizontal.left { left: 8%; transform: scaleX(0.75); }
+.ball.view-5 .horizontal.right { right: 10%; }
 
 .angle-grid {
   display: grid;

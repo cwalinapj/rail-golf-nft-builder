@@ -184,8 +184,9 @@ async function mintDesign() {
 }
 
 function rotateBall() {
-  state.rotation += 60;
-  els.ballPreview.style.setProperty("--rotation", `${state.rotation}deg`);
+  els.ballPreview.classList.remove(`view-${state.rotation}`);
+  state.rotation = (state.rotation + 1) % 6;
+  els.ballPreview.classList.add(`view-${state.rotation}`);
 }
 
 [
@@ -203,3 +204,4 @@ els.mintButton.addEventListener("click", mintDesign);
 els.rotateButton.addEventListener("click", rotateBall);
 
 updatePreview();
+els.ballPreview.classList.add("view-0");
