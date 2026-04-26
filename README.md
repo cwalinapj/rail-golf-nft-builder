@@ -1,6 +1,6 @@
-# Golf Rai NFT Builder
+# Rail Golf NFT Builder
 
-Static prototype for a Golf Rai Proof of Shot golf ball design site.
+Static prototype for a Rail Golf Proof of Shot golf ball design site.
 
 Open `index.html` in a browser to use the builder. The UI supports:
 

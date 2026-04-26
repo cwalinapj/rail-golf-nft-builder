@@ -84,19 +84,19 @@ function updatePreview() {
 }
 
 function buildMetadata() {
-  const designName = sanitize(els.designName.value, "Golf Rai Founder Proof Ball");
+  const designName = sanitize(els.designName.value, "Rail Golf Founder Proof Ball");
   const ballId = sanitize(els.ballId.value, "RAI-0001").toUpperCase();
   const player = sanitize(els.playerName.value, "Player 1");
 
   return {
-    name: `Golf Rai ${designName}`,
-    symbol: "GRAI",
+    name: `Rail Golf ${designName}`,
+    symbol: "RGOLF",
     description:
-      "A Golf Rai Proof of Shot fundraiser NFT reserving exclusive use of a UV-printed golf ball design for future Golf Rai ball purchases.",
+      "A Rail Golf Proof of Shot fundraiser NFT reserving exclusive use of a UV-printed golf ball design for future Rail Golf ball purchases.",
     seller_fee_basis_points: 500,
     image: "ipfs://REPLACE_WITH_RENDERED_BALL_IMAGE",
     animation_url: "ipfs://REPLACE_WITH_OPTIONAL_3D_PREVIEW",
-    external_url: "https://golfrai.example/proof-of-shot",
+    external_url: "https://railgolf.example/proof-of-shot",
     properties: {
       category: "image",
       files: [
@@ -121,8 +121,8 @@ function buildMetadata() {
       { trait_type: "Graphic Color", value: els.graphicColor.value },
       { trait_type: "Custom Mark", value: els.customMarkSelect.selectedOptions[0].textContent },
       { trait_type: "Print Method", value: "UV printed golf ball" },
-      { trait_type: "Rights", value: "Exclusive use of this design for future Golf Rai golf ball purchases" },
-      { trait_type: "Fundraiser Purpose", value: "Golf Rai MVP course deployment" },
+      { trait_type: "Rights", value: "Exclusive use of this design for future Rail Golf golf ball purchases" },
+      { trait_type: "Fundraiser Purpose", value: "Rail Golf MVP course deployment" },
     ],
   };
 }
