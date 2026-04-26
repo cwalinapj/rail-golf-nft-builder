@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Golf Rai Proof of Shot NFT Builder</title>
+    <meta
+      name="description"
+      content="Create a custom Golf Rai QR/Data Matrix golf ball design and mint exclusive design rights as a Solana Metaplex NFT."
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="#builder" aria-label="Golf Rai builder home">
+        <span class="brand-mark">GR</span>
+        <span>
+          <strong>Golf Rai</strong>
+          <small>Proof of Shot NFT Builder</small>
+        </span>
+      </a>
+      <nav class="nav">
+        <a href="#builder">Builder</a>
+        <a href="#rights">Design Rights</a>
+        <a href="#protocol">Protocol</a>
+      </nav>
+      <button class="wallet-button" id="walletButton" type="button">Connect Wallet</button>
+    </header>
+
+    <main>
+      <section class="builder-shell" id="builder">
+        <div class="builder-copy">
+          <p class="eyebrow">Initial MVP fundraiser</p>
+          <h1>Design a UV-printed Proof of Shot golf ball and mint the exclusive Solana NFT rights.</h1>
+          <p>
+            Every Golf Rai design must include the unique QR/Data Matrix style markings that begin the
+            Proof of Shot protocol. Your minted NFT reserves exclusive use of this design for purchasing
+            these golf balls when production opens.
+          </p>
+          <div class="fundraiser-strip" aria-label="Golf Rai mission">
+            <span>On-course shot data</span>
+            <span>Crypto rewards</span>
+            <span>Quantitative training</span>
+            <span>Gamified golf</span>
+          </div>
+        </div>
+
+        <div class="studio">
+          <section class="preview-panel" aria-labelledby="previewTitle">
+            <div class="panel-heading">
+              <div>
+                <p class="eyebrow">Live ball preview</p>
+                <h2 id="previewTitle">Required QR/Data Matrix layout</h2>
+              </div>
+              <button class="icon-button" id="rotateButton" type="button" title="Rotate preview" aria-label="Rotate preview">
+                ↻
+              </button>
+            </div>
+
+            <div class="ball-stage" id="ballStage">
+              <div class="ball" id="ballPreview" aria-label="Custom golf ball design preview">
+                <div class="dimple d1"></div>
+                <div class="dimple d2"></div>
+                <div class="dimple d3"></div>
+                <div class="dimple d4"></div>
+                <div class="data-code code-top" aria-hidden="true"></div>
+                <div class="data-code code-left" aria-hidden="true"></div>
+                <div class="data-code code-right" aria-hidden="true"></div>
+                <div class="data-code code-bottom" aria-hidden="true"></div>
+                <div class="alignment vertical top"></div>
+                <div class="alignment vertical bottom"></div>
+                <div class="alignment horizontal left"></div>
+                <div class="alignment horizontal right"></div>
+                <div class="center-dot"></div>
+                <div class="ball-id" id="ballIdPreview">RAI-0001</div>
+                <div class="player-name" id="playerPreview">Player 1</div>
+                <div class="custom-mark" id="customMark">R</div>
+              </div>
+              <div class="shadow"></div>
+            </div>
+
+            <div class="angle-grid" aria-label="All around view">
+              <div><span class="mini-ball"></span><strong>0°</strong></div>
+              <div><span class="mini-ball"></span><strong>60°</strong></div>
+              <div><span class="mini-ball"></span><strong>120°</strong></div>
+              <div><span class="mini-ball"></span><strong>180°</strong></div>
+              <div><span class="mini-ball"></span><strong>240°</strong></div>
+              <div><span class="mini-ball"></span><strong>300°</strong></div>
+            </div>
+          </section>
+
+          <section class="controls-panel" aria-labelledby="controlsTitle">
+            <div class="panel-heading">
+              <div>
+                <p class="eyebrow">NFT builder</p>
+                <h2 id="controlsTitle">Customize print and rights metadata</h2>
+              </div>
+            </div>
+
+            <form class="builder-form" id="builderForm">
+              <label>
+                Design name
+                <input id="designName" name="designName" maxlength="42" value="Founder Proof Ball" />
+              </label>
+              <label>
+                Human readable ball ID
+                <input id="ballId" name="ballId" maxlength="16" value="RAI-0001" />
+              </label>
+              <label>
+                Player or collection name
+                <input id="playerName" name="playerName" maxlength="24" value="Player 1" />
+              </label>
+
+              <div class="control-row">
+                <label>
+                  Accent color
+                  <input id="accentColor" name="accentColor" type="color" value="#1158c7" />
+                </label>
+                <label>
+                  Graphic color
+                  <input id="graphicColor" name="graphicColor" type="color" value="#0f7a5f" />
+                </label>
+              </div>
+
+              <label>
+                Custom mark
+                <select id="customMarkSelect" name="customMarkSelect">
+                  <option value="R">Rai monogram</option>
+                  <option value="★">Founder star</option>
+                  <option value="◆">Diamond</option>
+                  <option value="⌁">Wave</option>
+                  <option value="●">Tour dot</option>
+                </select>
+              </label>
+
+              <label>
+                QR/Data Matrix density
+                <input id="codeDensity" name="codeDensity" type="range" min="24" max="62" value="42" />
+              </label>
+
+              <label class="checkbox-row">
+                <input id="rightsAcknowledged" name="rightsAcknowledged" type="checkbox" />
+                <span>I understand this NFT reserves exclusive use of this design for future Golf Rai golf ball purchases.</span>
+              </label>
+
+              <div class="action-row">
+                <button class="primary-button" id="mintButton" type="button">Mint Design NFT</button>
+                <button class="secondary-button" id="metadataButton" type="button">Preview Metadata</button>
+              </div>
+            </form>
+          </section>
+        </div>
+      </section>
+
+      <section class="rights-band" id="rights">
+        <div>
+          <p class="eyebrow">What the NFT represents</p>
+          <h2>Exclusive design-use access for the printed golf ball drop.</h2>
+        </div>
+        <p>
+          The minted Solana Metaplex NFT is intended to identify the owner of a unique Golf Rai ball
+          design. Ownership gives the wallet holder exclusive use of that design when ordering these UV
+          printed balls after launch. It does not transfer Golf Rai trademarks, protocol IP, or the Proof
+          of Shot scanning system.
+        </p>
+      </section>
+
+      <section class="info-grid" id="protocol">
+        <article>
+          <h3>Proof of Shot seed</h3>
+          <p>
+            Four scannable QR/Data Matrix style blocks wrap the ball so identity can survive rotation,
+            partial obstruction, and on-course camera angles.
+          </p>
+        </article>
+        <article>
+          <h3>Training loop</h3>
+          <p>
+            Golf Rai aims to turn course-play shot data into quantitative practice feedback, then reward
+            players with crypto for verified participation and improvement.
+          </p>
+        </article>
+        <article>
+          <h3>Metaplex ready</h3>
+          <p>
+            The builder creates NFT attributes for design name, readable ID, QR requirement, colors,
+            print method, and exclusive-use rights so a mint service can publish the asset cleanly.
+          </p>
+        </article>
+      </section>
+
+      <section class="reference-section" aria-labelledby="referenceTitle">
+        <div>
+          <p class="eyebrow">Required visual reference</p>
+          <h2 id="referenceTitle">QR/Data Matrix placement stays mandatory.</h2>
+          <p>
+            Buyers can customize color, marking style, readable ID, player text, and graphics, but every
+            minted design must retain the unique QR/Data Matrix proof markings.
+          </p>
+        </div>
+        <img src="./assets/proof-of-shot-reference.jpeg" alt="Golf ball QR/Data Matrix placement reference" />
+      </section>
+
+      <section class="mint-output" aria-live="polite">
+        <div class="status" id="statusBox">Connect a Solana wallet, customize the ball, then preview or mint.</div>
+        <pre id="metadataOutput" tabindex="0"></pre>
+      </section>
+    </main>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
