@@ -1,6 +1,6 @@
 const state = {
   wallet: null,
-  rotation: 0,
+  spinning: false,
   uploadedMarkName: "",
   uploadedMarkUrl: "",
   builtMarkEnabled: false,
@@ -339,9 +339,10 @@ async function mintDesign() {
 }
 
 function rotateBall() {
-  els.ballPreview.classList.remove(`view-${state.rotation}`);
-  state.rotation = (state.rotation + 1) % 6;
-  els.ballPreview.classList.add(`view-${state.rotation}`);
+  state.spinning = !state.spinning;
+  els.ballPreview.classList.toggle("spinning", state.spinning);
+  els.rotateButton.classList.toggle("active", state.spinning);
+  els.rotateButton.setAttribute("aria-pressed", String(state.spinning));
 }
 
 [
@@ -372,4 +373,3 @@ els.mintButton.addEventListener("click", mintDesign);
 els.rotateButton.addEventListener("click", rotateBall);
 
 updatePreview();
-els.ballPreview.classList.add("view-0");

@@ -213,6 +213,11 @@ p {
   font-size: 1.25rem;
 }
 
+.icon-button.active {
+  background: var(--fairway);
+  color: white;
+}
+
 .ball-stage {
   display: grid;
   min-height: 31rem;
@@ -243,6 +248,10 @@ p {
   transition: background-position 360ms ease;
 }
 
+.ball.spinning {
+  animation: sphere-fill-spin 7s linear infinite;
+}
+
 .ball::before,
 .ball::after {
   content: "";
@@ -264,6 +273,11 @@ p {
     repeating-radial-gradient(circle at 30% 28%, rgba(118, 134, 128, 0.18) 0 0.18rem, transparent 0.2rem 1.12rem),
     radial-gradient(circle at 32% 25%, transparent 0 46%, rgba(255, 255, 255, 0.16) 52%, rgba(55, 67, 62, 0.2) 100%);
   mix-blend-mode: multiply;
+}
+
+.ball.spinning::before,
+.ball.spinning::after {
+  animation: sphere-texture-spin 7s linear infinite;
 }
 
 .ball > * {
@@ -408,138 +422,127 @@ p {
   transition: left 360ms ease, top 360ms ease, bottom 360ms ease, transform 360ms ease, opacity 360ms ease;
 }
 
-.ball.view-1 {
-  background-position: 0.4rem 0, 0.8rem 0;
+.ball.spinning .dimple,
+.ball.spinning .data-code,
+.ball.spinning .center-dot,
+.ball.spinning .ball-id,
+.ball.spinning .player-name,
+.ball.spinning .custom-mark {
+  animation-duration: 7s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
 }
 
-.ball.view-1 .code-top { left: 50%; top: 15%; }
-.ball.view-1 .code-left { left: 27%; top: 43%; }
-.ball.view-1 .code-right { left: 72%; top: 43%; opacity: 0.82; }
-.ball.view-1 .code-bottom { left: 51%; top: 65%; }
-.ball.view-1 .ball-id { left: 56%; }
-.ball.view-1 .player-name { left: 56%; }
-.ball.view-1 .custom-mark { left: 56%; }
-.ball.view-1 .center-dot { left: 52%; }
+.ball.spinning .d1 { animation-name: orbit-dimple-a; }
+.ball.spinning .d2 { animation-name: orbit-dimple-b; }
+.ball.spinning .d3 { animation-name: orbit-dimple-c; }
+.ball.spinning .d4 { animation-name: orbit-dimple-d; }
+.ball.spinning .code-top { animation-name: orbit-code-top; }
+.ball.spinning .code-left { animation-name: orbit-code-left; }
+.ball.spinning .code-right { animation-name: orbit-code-right; }
+.ball.spinning .code-bottom { animation-name: orbit-code-bottom; }
+.ball.spinning .center-dot { animation-name: orbit-center-dot; }
+.ball.spinning .ball-id { animation-name: orbit-text; }
+.ball.spinning .player-name { animation-name: orbit-player; }
+.ball.spinning .custom-mark { animation-name: orbit-mark; }
 
-.ball.view-2 {
-  background-position: 0.8rem 0, 1.6rem 0;
+@keyframes sphere-fill-spin {
+  from { background-position: 0 0, 0 0, 0 0; }
+  to { background-position: 0 0, 0 0, -26rem 0; }
 }
 
-.ball.view-2 .code-top { left: 58%; top: 17%; opacity: 0.86; }
-.ball.view-2 .code-left { left: 38%; top: 43%; }
-.ball.view-2 .code-right { left: 77%; top: 45%; opacity: 0.68; }
-.ball.view-2 .code-bottom { left: 58%; top: 63%; opacity: 0.86; }
-.ball.view-2 .ball-id { left: 62%; }
-.ball.view-2 .player-name { left: 62%; }
-.ball.view-2 .custom-mark { left: 62%; }
-.ball.view-2 .center-dot { left: 59%; }
-
-.ball.view-3 {
-  background-position: 1.2rem 0, 2.4rem 0;
+@keyframes sphere-texture-spin {
+  from { background-position: 0 0, 0 0; }
+  to { background-position: -18rem 0, -18rem 0; }
 }
 
-.ball.view-3 .code-top { left: 41%; top: 13%; }
-.ball.view-3 .code-left { left: 68%; top: 42%; opacity: 0.78; }
-.ball.view-3 .code-right { left: 15%; top: 42%; }
-.ball.view-3 .code-bottom { left: 41%; top: 67%; }
-.ball.view-3 .ball-id { left: 50%; }
-.ball.view-3 .player-name { left: 50%; }
-.ball.view-3 .custom-mark { left: 50%; }
-.ball.view-3 .center-dot { left: 46%; }
-
-.ball.view-4 {
-  background-position: -0.8rem 0, -1.6rem 0;
+@keyframes orbit-code-top {
+  0% { left: 41%; top: 14%; opacity: 1; transform: translateX(0); }
+  48% { opacity: 0.5; }
+  50% { left: -24%; top: 16%; opacity: 0; }
+  51% { left: 104%; top: 16%; opacity: 0; }
+  100% { left: 41%; top: 14%; opacity: 1; transform: translateX(0); }
 }
 
-.ball.view-4 .code-top { left: 28%; top: 17%; opacity: 0.86; }
-.ball.view-4 .code-left { left: 9%; top: 45%; opacity: 0.68; }
-.ball.view-4 .code-right { left: 45%; top: 43%; }
-.ball.view-4 .code-bottom { left: 28%; top: 63%; opacity: 0.86; }
-.ball.view-4 .ball-id { left: 39%; }
-.ball.view-4 .player-name { left: 39%; }
-.ball.view-4 .custom-mark { left: 39%; }
-.ball.view-4 .center-dot { left: 36%; }
-
-.ball.view-5 {
-  background-position: -0.4rem 0, -0.8rem 0;
+@keyframes orbit-code-left {
+  0% { left: 16%; top: 42%; opacity: 1; }
+  35% { left: -22%; opacity: 0; }
+  36% { left: 108%; opacity: 0; }
+  100% { left: 16%; top: 42%; opacity: 1; }
 }
 
-.ball.view-5 .code-top { left: 32%; top: 15%; }
-.ball.view-5 .code-left { left: 9%; top: 43%; opacity: 0.82; }
-.ball.view-5 .code-right { left: 57%; top: 43%; }
-.ball.view-5 .code-bottom { left: 32%; top: 65%; }
-.ball.view-5 .ball-id { left: 44%; }
-.ball.view-5 .player-name { left: 44%; }
-.ball.view-5 .custom-mark { left: 44%; }
-.ball.view-5 .center-dot { left: 40%; }
-
-.ball.view-1 .data-code,
-.ball.view-2 .data-code,
-.ball.view-3 .data-code,
-.ball.view-4 .data-code,
-.ball.view-5 .data-code,
-.ball.view-1 .center-dot,
-.ball.view-2 .center-dot,
-.ball.view-3 .center-dot,
-.ball.view-4 .center-dot,
-.ball.view-5 .center-dot {
-  transform: none;
+@keyframes orbit-code-right {
+  0% { left: 66%; top: 42%; opacity: 1; }
+  68% { left: -22%; opacity: 0; }
+  69% { left: 108%; opacity: 0; }
+  100% { left: 66%; top: 42%; opacity: 1; }
 }
 
-.ball.view-1 .ball-id,
-.ball.view-2 .ball-id,
-.ball.view-3 .ball-id,
-.ball.view-4 .ball-id,
-.ball.view-5 .ball-id,
-.ball.view-1 .player-name,
-.ball.view-2 .player-name,
-.ball.view-3 .player-name,
-.ball.view-4 .player-name,
-.ball.view-5 .player-name,
-.ball.view-1 .custom-mark,
-.ball.view-2 .custom-mark,
-.ball.view-3 .custom-mark,
-.ball.view-4 .custom-mark,
-.ball.view-5 .custom-mark {
-  transform: translateX(-50%);
+@keyframes orbit-code-bottom {
+  0% { left: 41%; top: 66%; opacity: 1; }
+  48% { opacity: 0.5; }
+  50% { left: -24%; top: 64%; opacity: 0; }
+  51% { left: 104%; top: 64%; opacity: 0; }
+  100% { left: 41%; top: 66%; opacity: 1; }
 }
 
-.angle-grid {
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  gap: 0.7rem;
+@keyframes orbit-center-dot {
+  0% { left: 46%; opacity: 1; }
+  50% { left: -15%; opacity: 0; }
+  51% { left: 110%; opacity: 0; }
+  100% { left: 46%; opacity: 1; }
 }
 
-.angle-grid div {
-  display: grid;
-  place-items: center;
-  gap: 0.35rem;
-  color: var(--muted);
-  font-size: 0.8rem;
+@keyframes orbit-text {
+  0% { left: 50%; opacity: 1; transform: translateX(-50%); }
+  48% { opacity: 0.42; }
+  50% { left: -25%; opacity: 0; transform: translateX(-50%); }
+  51% { left: 125%; opacity: 0; transform: translateX(-50%); }
+  100% { left: 50%; opacity: 1; transform: translateX(-50%); }
 }
 
-.mini-ball {
-  position: relative;
-  width: 4.5rem;
-  max-width: 100%;
-  aspect-ratio: 1;
-  border-radius: 50%;
-  background:
-    radial-gradient(circle at 32% 25%, #fff 0 14%, #eef3f0 54%, #b9c3bf 100%),
-    repeating-radial-gradient(circle at center, rgba(116, 132, 126, 0.25) 0 0.08rem, transparent 0.1rem 0.46rem);
-  box-shadow: inset -0.65rem -0.65rem 1.4rem rgba(91, 103, 98, 0.26);
+@keyframes orbit-player {
+  0% { left: 50%; opacity: 1; transform: translateX(-50%); }
+  48% { opacity: 0.42; }
+  50% { left: -25%; opacity: 0; transform: translateX(-50%); }
+  51% { left: 125%; opacity: 0; transform: translateX(-50%); }
+  100% { left: 50%; opacity: 1; transform: translateX(-50%); }
 }
 
-.mini-ball::before {
-  content: "";
-  position: absolute;
-  left: 39%;
-  top: 22%;
-  width: 22%;
-  aspect-ratio: 1;
-  border: 0.08rem solid #111;
-  background: var(--code-pattern);
-  background-size: 0.24rem 0.24rem;
+@keyframes orbit-mark {
+  0% { left: 50%; opacity: 0.9; transform: translateX(-50%); }
+  46% { opacity: 0.35; }
+  50% { left: -18%; opacity: 0; transform: translateX(-50%); }
+  51% { left: 118%; opacity: 0; transform: translateX(-50%); }
+  100% { left: 50%; opacity: 0.9; transform: translateX(-50%); }
+}
+
+@keyframes orbit-dimple-a {
+  0% { left: 22%; opacity: 1; }
+  40% { left: -10%; opacity: 0; }
+  41% { left: 104%; opacity: 0; }
+  100% { left: 22%; opacity: 1; }
+}
+
+@keyframes orbit-dimple-b {
+  0% { left: 70%; opacity: 1; }
+  70% { left: -10%; opacity: 0; }
+  71% { left: 104%; opacity: 0; }
+  100% { left: 70%; opacity: 1; }
+}
+
+@keyframes orbit-dimple-c {
+  0% { left: 18%; opacity: 1; }
+  38% { left: -10%; opacity: 0; }
+  39% { left: 104%; opacity: 0; }
+  100% { left: 18%; opacity: 1; }
+}
+
+@keyframes orbit-dimple-d {
+  0% { left: 63%; opacity: 1; }
+  66% { left: -10%; opacity: 0; }
+  67% { left: 104%; opacity: 0; }
+  100% { left: 63%; opacity: 1; }
 }
 
 .builder-form {
@@ -698,9 +701,6 @@ pre {
     display: none;
   }
 
-  .angle-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
 }
 
 @media (max-width: 620px) {
